@@ -15,14 +15,14 @@ export default function PostsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editPost, setEditPost] = useState<Post | null>(null);
 
-  // Получить список постов
+  // Get the posts number
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts?_limit=10")
       .then(res => res.json())
       .then(data => setPosts(data));
   }, []);
 
-  // Добавить или обновить пост
+  // add or refresh the post
   const handleSubmit = async (title: string, body: string, id?: number) => {
     if (id) {
       // UPDATE
@@ -47,7 +47,7 @@ export default function PostsPage() {
     setEditPost(null);
   };
 
-  // Удалить пост
+  // Delete the post
   const handleDelete = async (id: number) => {
     await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
       method: "DELETE",
@@ -55,7 +55,7 @@ export default function PostsPage() {
     setPosts(posts.filter(post => post.id !== id));
   };
 
-  // Открыть форму для редактирования
+  // Open the form for edditing
   const handleEdit = (post: Post) => {
     setEditPost(post);
     setShowForm(true);
